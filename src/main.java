@@ -1,7 +1,4 @@
-import parser.BlockMaker;
-import parser.ElementMaker;
-import parser.ParseSetting;
-import parser.Parser;
+import parser.*;
 import parser.elements.BraceBlock;
 import parser.elements.KeyValue;
 import parser.structs.Block;
@@ -42,22 +39,47 @@ public class main {
         String str = "#test\n abc {\naaa bbb;\n ccc{\nddd\t eee;}}\n";
         Parser parser = new Parser(setting);
         IBlock root = parser.parse(str);
-        printBlock(root, "", 0);
+        readBlock(root);
+        printBlock(root);
     }
 
-    private static void printBlock(IBlock block, String prefix, int index) throws Exception {
-        System.out.println(prefix + index + ". [" + block.getType() + "]");
-        int len = block.getNumChildren();
-        for (int i = 0; i < len; i++) {
-            IElement element = block.getChildAt(i);
-            if (element.hasChildren()) {
-                IBlock subBlock = (Block) element;
-                printBlock(subBlock, prefix + "\t", i);
-            } else {
-                String output = element.output();
-                if (output.equals(Parser.LineBreak)) output = "\\n";
-                System.out.println(prefix + "\t" + i + ". [" + element.getType() + "] " + output);
+    private static void readBlock(IBlock block) {
+        BlockReader reader = new BlockReader() {
+            @Override
+            protected void handleResult(BlockReader.Result result) {
+                int i = result.index;
+                int l = result.level;
+                IElement e = result.element;
+                if (e.getType().equals("key") && i == 0) {
+                    System.out.println(e.output());
+                }
             }
-        }
+        };
+        reader.read(block);
+    }
+
+    private static void printBlock(IBlock block) {
+        System.out.println("--- structure ---");
+        BlockReader reader = new BlockReader() {
+            @Override
+            protected void handleResult(BlockReader.Result result) {
+                int i = result.index;
+                int l = result.level;
+                IElement e = result.element;
+                StringBuilder tab = new StringBuilder();
+                while (l > 0) {
+                    l--;
+                    tab.append("\t");
+                }
+                if (result.isBlock) {
+                    System.out.println(tab.toString() + i + ". [" + e.getType() + "]");
+                } else {
+                    String output = e.output();
+                    if (output.equals(Parser.LineBreak)) output = "\\n";
+                    System.out.println(tab.toString() + i + ". [" + e.getType() + "] " + output);
+                }
+            }
+        };
+        reader.read(block);
     }
 }
