@@ -24,5 +24,13 @@ public class KeyValue extends Block {
         }
     }
 
+    public Element getKey() {
+        return key;
+    }
+
+    public Element getValue() {
+        return value;
+    }
+
 
 }

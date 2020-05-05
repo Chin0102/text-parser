@@ -3,8 +3,6 @@ package parser;
 import parser.structs.Element;
 import parser.structs.IBlock;
 
-import java.util.Set;
-
 public class Parser {
 
     public static String LineBreak = "\n";
