@@ -30,7 +30,7 @@ public class ParseSetting {
     //for parser--------------------------------------
     public IBlock createRoot() {
         if (rootMaker != null) return rootMaker.create();
-        return new Block("root", "", "", true);
+        return new Block("root", true, "text");
     }
 
     public IBlock createBlock(String sign) {

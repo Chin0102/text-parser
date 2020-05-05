@@ -37,6 +37,10 @@ public class Element implements IElement {
         return content;
     }
 
+    public void setContent(String content) {
+        this.content = content;
+    }
+
     public String getPostfix() {
         return postfix;
     }

@@ -4,8 +4,6 @@ import java.util.ArrayList;
 
 public class Block implements IBlock {
 
-    final public static String LineBreak = "\n";
-
     private String type;
     private String lineType;
     private boolean containable;
