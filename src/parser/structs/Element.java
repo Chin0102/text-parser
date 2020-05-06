@@ -33,6 +33,7 @@ public class Element implements IElement {
         return prefix;
     }
 
+    @Override
     public String getContent() {
         return content;
     }

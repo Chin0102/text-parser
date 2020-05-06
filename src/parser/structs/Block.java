@@ -106,6 +106,13 @@ public class Block implements IBlock {
     }
 
     @Override
+    public String getContent() {
+        StringBuilder str = new StringBuilder();
+        for (IElement ele : children) str.append(ele.getContent());
+        return str.toString();
+    }
+
+    @Override
     public String output() {
         StringBuilder str = new StringBuilder();
         for (IElement ele : children) str.append(ele.output());

@@ -5,5 +5,7 @@ public interface IElement {
 
     public boolean hasChildren();
 
+    public String getContent();
+
     public String output();
 }

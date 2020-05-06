@@ -39,7 +39,7 @@ public class main {
         String str = "#test\n abc {\naaa bbb;\n ccc{\nddd\t eee;}}\n";
         Parser parser = new Parser(setting);
         IBlock root = parser.parse(str);
-        readBlock(root);
+        //readBlock(root);
         printBlock(root);
     }
 
@@ -74,7 +74,7 @@ public class main {
                 if (result.isBlock) {
                     System.out.println(tab.toString() + i + ". [" + e.getType() + "]");
                 } else {
-                    String output = e.output();
+                    String output = e.getContent();
                     if (output.equals(Parser.LineBreak)) output = "\\n";
                     System.out.println(tab.toString() + i + ". [" + e.getType() + "] " + output);
                 }
