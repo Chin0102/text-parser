@@ -22,7 +22,7 @@ public class Parser {
 
     private void flushText(String text, IBlock block) {
         if (text.equals("")) return;
-        String content = text.replaceAll("(^\\s*)|(\\s*$)", "");
+        String content = text.trim(); //String content = text.replaceAll("(^\\s*)|(\\s*$)", "");
         int i = text.indexOf(content);
         String prefix = text.substring(0, i);
         String postfix = text.substring(i + content.length());
@@ -43,9 +43,7 @@ public class Parser {
         IBlock block = root;
         StringBuilder text = new StringBuilder();
         //
-        int len = parts.length;
-        for (int i = 0; i < len; i++) {
-            String part = parts[i];
+        for (String part : parts) {
             //不处理空字符串
             if (part.equals("")) continue;
             //判断当前block结束
